@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище BDPPModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Chvet">
+          <Key>
+            <PropertyRef Name="ID_Chvet" />
+          </Key>
+          <Property Name="ID_Chvet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Chvet" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Karandashi">
+          <Key>
+            <PropertyRef Name="ID_Karandashi" />
+          </Key>
+          <Property Name="ID_Karandashi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KarandashiType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Razmer">
+          <Key>
+            <PropertyRef Name="ID_Razmer" />
+          </Key>
+          <Property Name="ID_Razmer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Razmer" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZavodKarandashey">
+          <Key>
+            <PropertyRef Name="ID_SozdanogoKarandasha" />
+          </Key>
+          <Property Name="ID_SozdanogoKarandasha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KarandashiType_ID" Type="int" Nullable="false" />
+          <Property Name="Razmer_ID" Type="int" Nullable="false" />
+          <Property Name="Chvet_ID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BDPP.dbo.ChvetView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="ChvetView">
+          <Key>
+            <PropertyRef Name="Номер цвета" />
+            <PropertyRef Name="Цвет" />
+          </Key>
+          <Property Name="Номер цвета" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Цвет" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BDPP.dbo.KarandashiInventory" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="KarandashiInventory">
+          <Key>
+            <PropertyRef Name="Тип карандаша" />
+            <PropertyRef Name="Размер" />
+            <PropertyRef Name="Цвет" />
+            <PropertyRef Name="Цена" />
+          </Key>
+          <Property Name="Тип карандаша" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Размер" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Цвет" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Цена" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BDPP.dbo.KarandashiView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="KarandashiView">
+          <Key>
+            <PropertyRef Name="Номер карандаша" />
+            <PropertyRef Name="Тип карандаша" />
+          </Key>
+          <Property Name="Номер карандаша" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Тип карандаша" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BDPP.dbo.RazmerView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="RazmerView">
+          <Key>
+            <PropertyRef Name="Номер размера" />
+            <PropertyRef Name="Размер" />
+          </Key>
+          <Property Name="Номер размера" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Размер" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ZavodKara__Chvet__3F466844">
+          <End Role="Chvet" Type="Self.Chvet" Multiplicity="1" />
+          <End Role="ZavodKarandashey" Type="Self.ZavodKarandashey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chvet">
+              <PropertyRef Name="ID_Chvet" />
+            </Principal>
+            <Dependent Role="ZavodKarandashey">
+              <PropertyRef Name="Chvet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ZavodKara__Karan__3D5E1FD2">
+          <End Role="Karandashi" Type="Self.Karandashi" Multiplicity="1" />
+          <End Role="ZavodKarandashey" Type="Self.ZavodKarandashey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Karandashi">
+              <PropertyRef Name="ID_Karandashi" />
+            </Principal>
+            <Dependent Role="ZavodKarandashey">
+              <PropertyRef Name="KarandashiType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ZavodKara__Razme__3E52440B">
+          <End Role="Razmer" Type="Self.Razmer" Multiplicity="1" />
+          <End Role="ZavodKarandashey" Type="Self.ZavodKarandashey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razmer">
+              <PropertyRef Name="ID_Razmer" />
+            </Principal>
+            <Dependent Role="ZavodKarandashey">
+              <PropertyRef Name="Razmer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BDPPModelContainer">
+          <EntitySet Name="Chvet" EntityType="Self.Chvet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Karandashi" EntityType="Self.Karandashi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Razmer" EntityType="Self.Razmer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZavodKarandashey" EntityType="Self.ZavodKarandashey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChvetView" EntityType="Self.ChvetView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ChvetView].[Номер цвета] AS [Номер цвета], 
+    [ChvetView].[Цвет] AS [Цвет]
+    FROM [dbo].[ChvetView] AS [ChvetView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="KarandashiInventory" EntityType="Self.KarandashiInventory" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [KarandashiInventory].[Тип карандаша] AS [Тип карандаша], 
+    [KarandashiInventory].[Размер] AS [Размер], 
+    [KarandashiInventory].[Цвет] AS [Цвет], 
+    [KarandashiInventory].[Цена] AS [Цена]
+    FROM [dbo].[KarandashiInventory] AS [KarandashiInventory]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="KarandashiView" EntityType="Self.KarandashiView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [KarandashiView].[Номер карандаша] AS [Номер карандаша], 
+    [KarandashiView].[Тип карандаша] AS [Тип карандаша]
+    FROM [dbo].[KarandashiView] AS [KarandashiView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RazmerView" EntityType="Self.RazmerView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RazmerView].[Номер размера] AS [Номер размера], 
+    [RazmerView].[Размер] AS [Размер]
+    FROM [dbo].[RazmerView] AS [RazmerView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__ZavodKara__Chvet__3F466844" Association="Self.FK__ZavodKara__Chvet__3F466844">
+            <End Role="Chvet" EntitySet="Chvet" />
+            <End Role="ZavodKarandashey" EntitySet="ZavodKarandashey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ZavodKara__Karan__3D5E1FD2" Association="Self.FK__ZavodKara__Karan__3D5E1FD2">
+            <End Role="Karandashi" EntitySet="Karandashi" />
+            <End Role="ZavodKarandashey" EntitySet="ZavodKarandashey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ZavodKara__Razme__3E52440B" Association="Self.FK__ZavodKara__Razme__3E52440B">
+            <End Role="Razmer" EntitySet="Razmer" />
+            <End Role="ZavodKarandashey" EntitySet="ZavodKarandashey" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDPPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Chvet">
+          <Key>
+            <PropertyRef Name="ID_Chvet" />
+          </Key>
+          <Property Name="ID_Chvet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Chvet1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ZavodKarandashey" Relationship="Self.FK__ZavodKara__Chvet__3F466844" FromRole="Chvet" ToRole="ZavodKarandashey" />
+        </EntityType>
+        <EntityType Name="Karandashi">
+          <Key>
+            <PropertyRef Name="ID_Karandashi" />
+          </Key>
+          <Property Name="ID_Karandashi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KarandashiType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ZavodKarandashey" Relationship="Self.FK__ZavodKara__Karan__3D5E1FD2" FromRole="Karandashi" ToRole="ZavodKarandashey" />
+        </EntityType>
+        <EntityType Name="Razmer">
+          <Key>
+            <PropertyRef Name="ID_Razmer" />
+          </Key>
+          <Property Name="ID_Razmer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Razmer1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ZavodKarandashey" Relationship="Self.FK__ZavodKara__Razme__3E52440B" FromRole="Razmer" ToRole="ZavodKarandashey" />
+        </EntityType>
+        <EntityType Name="ZavodKarandashey">
+          <Key>
+            <PropertyRef Name="ID_SozdanogoKarandasha" />
+          </Key>
+          <Property Name="ID_SozdanogoKarandasha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KarandashiType_ID" Type="Int32" Nullable="false" />
+          <Property Name="Razmer_ID" Type="Int32" Nullable="false" />
+          <Property Name="Chvet_ID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Chvet" Relationship="Self.FK__ZavodKara__Chvet__3F466844" FromRole="ZavodKarandashey" ToRole="Chvet" />
+          <NavigationProperty Name="Karandashi" Relationship="Self.FK__ZavodKara__Karan__3D5E1FD2" FromRole="ZavodKarandashey" ToRole="Karandashi" />
+          <NavigationProperty Name="Razmer" Relationship="Self.FK__ZavodKara__Razme__3E52440B" FromRole="ZavodKarandashey" ToRole="Razmer" />
+        </EntityType>
+        <Association Name="FK__ZavodKara__Chvet__3F466844">
+          <End Role="Chvet" Type="Self.Chvet" Multiplicity="1" />
+          <End Role="ZavodKarandashey" Type="Self.ZavodKarandashey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chvet">
+              <PropertyRef Name="ID_Chvet" />
+            </Principal>
+            <Dependent Role="ZavodKarandashey">
+              <PropertyRef Name="Chvet_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ZavodKara__Karan__3D5E1FD2">
+          <End Role="Karandashi" Type="Self.Karandashi" Multiplicity="1" />
+          <End Role="ZavodKarandashey" Type="Self.ZavodKarandashey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Karandashi">
+              <PropertyRef Name="ID_Karandashi" />
+            </Principal>
+            <Dependent Role="ZavodKarandashey">
+              <PropertyRef Name="KarandashiType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ZavodKara__Razme__3E52440B">
+          <End Role="Razmer" Type="Self.Razmer" Multiplicity="1" />
+          <End Role="ZavodKarandashey" Type="Self.ZavodKarandashey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razmer">
+              <PropertyRef Name="ID_Razmer" />
+            </Principal>
+            <Dependent Role="ZavodKarandashey">
+              <PropertyRef Name="Razmer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDPPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Chvet" EntityType="Self.Chvet" />
+          <EntitySet Name="Karandashi" EntityType="Self.Karandashi" />
+          <EntitySet Name="Razmer" EntityType="Self.Razmer" />
+          <EntitySet Name="ZavodKarandashey" EntityType="Self.ZavodKarandashey" />
+          <AssociationSet Name="FK__ZavodKara__Chvet__3F466844" Association="Self.FK__ZavodKara__Chvet__3F466844">
+            <End Role="Chvet" EntitySet="Chvet" />
+            <End Role="ZavodKarandashey" EntitySet="ZavodKarandashey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ZavodKara__Karan__3D5E1FD2" Association="Self.FK__ZavodKara__Karan__3D5E1FD2">
+            <End Role="Karandashi" EntitySet="Karandashi" />
+            <End Role="ZavodKarandashey" EntitySet="ZavodKarandashey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ZavodKara__Razme__3E52440B" Association="Self.FK__ZavodKara__Razme__3E52440B">
+            <End Role="Razmer" EntitySet="Razmer" />
+            <End Role="ZavodKarandashey" EntitySet="ZavodKarandashey" />
+          </AssociationSet>
+          <EntitySet Name="ChvetView" EntityType="BDPPModel.ChvetView" />
+          <EntitySet Name="KarandashiInventory" EntityType="BDPPModel.KarandashiInventory" />
+          <EntitySet Name="KarandashiView" EntityType="BDPPModel.KarandashiView" />
+          <EntitySet Name="RazmerView" EntityType="BDPPModel.RazmerView" />
+        </EntityContainer>
+        <EntityType Name="ChvetView">
+          <Key>
+            <PropertyRef Name="Номер_цвета" />
+            <PropertyRef Name="Цвет" />
+          </Key>
+          <Property Name="Номер_цвета" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Цвет" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="KarandashiInventory">
+          <Key>
+            <PropertyRef Name="Тип_карандаша" />
+            <PropertyRef Name="Размер" />
+            <PropertyRef Name="Цвет" />
+            <PropertyRef Name="Цена" />
+          </Key>
+          <Property Name="Тип_карандаша" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Размер" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Цвет" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Цена" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KarandashiView">
+          <Key>
+            <PropertyRef Name="Номер_карандаша" />
+            <PropertyRef Name="Тип_карандаша" />
+          </Key>
+          <Property Name="Номер_карандаша" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Тип_карандаша" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RazmerView">
+          <Key>
+            <PropertyRef Name="Номер_размера" />
+            <PropertyRef Name="Размер" />
+          </Key>
+          <Property Name="Номер_размера" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Размер" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BDPPModelContainer" CdmEntityContainer="BDPPEntities">
+          <EntitySetMapping Name="Chvet">
+            <EntityTypeMapping TypeName="BDPPModel.Chvet">
+              <MappingFragment StoreEntitySet="Chvet">
+                <ScalarProperty Name="ID_Chvet" ColumnName="ID_Chvet" />
+                <ScalarProperty Name="Chvet1" ColumnName="Chvet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Karandashi">
+            <EntityTypeMapping TypeName="BDPPModel.Karandashi">
+              <MappingFragment StoreEntitySet="Karandashi">
+                <ScalarProperty Name="ID_Karandashi" ColumnName="ID_Karandashi" />
+                <ScalarProperty Name="KarandashiType" ColumnName="KarandashiType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Razmer">
+            <EntityTypeMapping TypeName="BDPPModel.Razmer">
+              <MappingFragment StoreEntitySet="Razmer">
+                <ScalarProperty Name="ID_Razmer" ColumnName="ID_Razmer" />
+                <ScalarProperty Name="Razmer1" ColumnName="Razmer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZavodKarandashey">
+            <EntityTypeMapping TypeName="BDPPModel.ZavodKarandashey">
+              <MappingFragment StoreEntitySet="ZavodKarandashey">
+                <ScalarProperty Name="ID_SozdanogoKarandasha" ColumnName="ID_SozdanogoKarandasha" />
+                <ScalarProperty Name="KarandashiType_ID" ColumnName="KarandashiType_ID" />
+                <ScalarProperty Name="Razmer_ID" ColumnName="Razmer_ID" />
+                <ScalarProperty Name="Chvet_ID" ColumnName="Chvet_ID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChvetView">
+            <EntityTypeMapping TypeName="BDPPModel.ChvetView">
+              <MappingFragment StoreEntitySet="ChvetView">
+                <ScalarProperty Name="Цвет" ColumnName="Цвет" />
+                <ScalarProperty Name="Номер_цвета" ColumnName="Номер цвета" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KarandashiInventory">
+            <EntityTypeMapping TypeName="BDPPModel.KarandashiInventory">
+              <MappingFragment StoreEntitySet="KarandashiInventory">
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Цвет" ColumnName="Цвет" />
+                <ScalarProperty Name="Размер" ColumnName="Размер" />
+                <ScalarProperty Name="Тип_карандаша" ColumnName="Тип карандаша" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KarandashiView">
+            <EntityTypeMapping TypeName="BDPPModel.KarandashiView">
+              <MappingFragment StoreEntitySet="KarandashiView">
+                <ScalarProperty Name="Тип_карандаша" ColumnName="Тип карандаша" />
+                <ScalarProperty Name="Номер_карандаша" ColumnName="Номер карандаша" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RazmerView">
+            <EntityTypeMapping TypeName="BDPPModel.RazmerView">
+              <MappingFragment StoreEntitySet="RazmerView">
+                <ScalarProperty Name="Размер" ColumnName="Размер" />
+                <ScalarProperty Name="Номер_размера" ColumnName="Номер размера" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

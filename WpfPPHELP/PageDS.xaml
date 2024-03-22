@@ -1,0 +1,48 @@
+﻿<Page x:Class="WpfPPHELP.PageDS"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfPPHELP"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageDS">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="327*"/>
+            <RowDefinition Height="59*"/>
+        </Grid.RowDefinitions>
+        <DataGrid CanUserAddRows="False" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" x:Name="DataGridDS"/>
+        <Grid Width="200" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Поиск и фильтрация"/>
+            <TextBox Grid.Column="0" Grid.Row="1" x:Name="SearchTextBox"/>
+            <ComboBox Grid.Column="0" Grid.Row="2" x:Name="FilterComboBox"/>
+            <CheckBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" x:Name="SearchCheckBox" Checked="SearchCheckBox_Checked" Unchecked="SearchCheckBox_Unchecked" Background="DarkGray"/>
+            <CheckBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" x:Name="FilterCheckBox" Checked="FilterCheckBox_Checked" Unchecked="FilterCheckBox_Unchecked"/>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="GridTextBoxDS">
+            <TextBox VerticalContentAlignment="Center" x:Name="TextBoxDS"/>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="GridComboBoxesDS">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="KardashyanTypeIDCMBX" Grid.Column="0" VerticalContentAlignment="Center" SelectionChanged="KardashyanIDCMBX_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="SizeIDCMBX" Grid.Column="1" VerticalContentAlignment="Center" SelectionChanged="SizeIDCMBX_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="ColorIDCMBX" Grid.Column="2" VerticalContentAlignment="Center" SelectionChanged="ColorIDCMBX_SelectionChanged"></ComboBox>
+            <TextBox x:Name="PriceTBX" Grid.Column="3" VerticalContentAlignment="Center"></TextBox>
+        </Grid>
+    </Grid>
+</Page>
